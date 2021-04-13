@@ -14,9 +14,6 @@ class Play extends Phaser.Scene {
         // starfield
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
 
-        // initialize score
-        this.p1Score = 0;
-
         // rocket
         this.p1Rocket = new Rocket(
             this,
@@ -28,29 +25,32 @@ class Play extends Phaser.Scene {
         // enemy ship1
         this.ship1 = new Ship(
             this,
-            100,
-            200,
-            'spaceship',
-            1
+            game.config.width + borderUISize*6, 
+            borderUISize*4, 
+            'spaceship', 
+            0, 
+            30
         ).setOrigin(0, 0);
 
         // enemy ship2
         this.ship2 = new Ship(
             this,
-            300,
-            200,
+            game.config.width + borderUISize*3,
+            borderUISize*5 + borderPadding*2,
             'spaceship',
-            1
+            0,
+            20
         ).setOrigin(0, 0);
 
 
         // enemy ship3
         this.ship3 = new Ship(
             this,
-            500,
-            200,
+            game.config.width,
+            borderUISize*6 + borderPadding*4,
             'spaceship',
-            1
+            0,
+            10
         ).setOrigin(0, 0);
 
 
@@ -71,17 +71,20 @@ class Play extends Phaser.Scene {
 
         // explosion animation
         this.anims.create({
-            key: 'explode',
+            key: 'explosion',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
             frameRate: 30
         });
 
+        // initialize score
+        this.p1Score = 0;
+
         // display score
         let scoreConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#FF0000',
-            color: '#FF0000',
+            fontSize: '32px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
             align: 'right',
             padding: {
                 top: 5,
@@ -132,7 +135,7 @@ class Play extends Phaser.Scene {
 
         // create explosion sprite at ship's position
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
-        boom.anims.play('explode');
+        boom.anims.play('explosion');
         boom.on('animationcomplete', () => {
             ship.reset();
             boom.destroy();
@@ -143,3 +146,4 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score;
     }
 }
+// ERROR: POINTS NOT BEING ADDED CORRECTLY
