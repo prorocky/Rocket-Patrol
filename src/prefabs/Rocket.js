@@ -21,9 +21,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
                 this.y = game.config.height - borderUISize - borderPadding;
                 this.isFiring = false;
             }
-            if (keyF.isUp) {
-                this.isFiring = false;
-            }
         } else {
 
             // rocket controls (left and right)
